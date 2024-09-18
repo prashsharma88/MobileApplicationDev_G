@@ -14,7 +14,7 @@ import ContactListFlatlist from "./components/ContactListFlatlist";
 function Main() : React.JSX.Element {
     return (
         <SafeAreaView>
-            <Text>List Demo</Text>
+            <Text style={style.header}>List Demo</Text>
             {/* <ScrollView> */}
                 {/* Iterate over contact list and create ContactListItem for each item */}
 
@@ -34,5 +34,17 @@ function Main() : React.JSX.Element {
         </SafeAreaView>
     );
 }
+
+const style = StyleSheet.create({
+    header: {
+        fontSize: 30,
+        height: 50,
+        fontWeight: '600',
+        textAlign: 'center',
+        marginBottom: 5,
+        backgroundColor: '#507687',
+        color: '#FFFFFF',
+    }
+});
 
 export default Main;
