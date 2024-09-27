@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, View, Text,StyleSheet } from "react-native";
+import { Image, View, Text,StyleSheet, TouchableOpacity, Pressable } from "react-native";
 
 type itemProp = {
     fName: string,
@@ -11,29 +11,32 @@ type itemProp = {
 
 function ContactListItem(prop : itemProp) : React.JSX.Element {
     return (
-        <View style={style.contactItem}>
+        <Pressable>
+            <View style={style.contactItem}>
             {/* image view */}
-            <View>
-                <Image
-                source={require("../../assets/user.png")}
-                />
+                <View>
+                    <Image
+                    source={require("../../assets/user.png")}
+                    />
+                </View>
+
+                {/* Details view */}
+                <View style={style.contactDetailView}>
+
+                    <Text style={style.nameTxt}>
+                        {prop.fName+" "+prop.lName}
+                    </Text>
+                    <Text style={style.detailTxt}>
+                        {prop.mob}
+                    </Text>
+                    <Text style={style.detailTxt}>
+                        {prop.email}
+                    </Text>
+
+                </View>
             </View>
-
-            {/* Details view */}
-            <View style={style.contactDetailView}>
-
-                <Text style={style.nameTxt}>
-                    {prop.fName+" "+prop.lName}
-                </Text>
-                <Text style={style.detailTxt}>
-                    {prop.mob}
-                </Text>
-                <Text style={style.detailTxt}>
-                    {prop.email}
-                </Text>
-
-            </View>
-        </View>
+        </Pressable>
+        
     );
 }
 
