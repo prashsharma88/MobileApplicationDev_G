@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     View,
     Text,
@@ -7,11 +7,37 @@ import {
 } from "react-native";
 import { CommonStyle } from "../styles/styles";
 
-function ScoreCard() : React.JSX.Element {
-    const playerName = "John"
+
+type scoreCardPropsType = {
+    playerName : string,
+    maxScore : number,
+};
+
+function ScoreCard( props : scoreCardPropsType ) : React.JSX.Element {
+    const playerName = props.playerName;
+    const maxScore = props.maxScore;
     const scores = [10,20,30];
 
-    const CurrentScore=0;
+    const [displayWinnerBtn, setDisplayWinnerBtn] = useState(false);
+
+    // local state for current score.
+
+    const [currentScore, updateCurrentScore] = useState(0);
+
+    function handleScoreUpdate(updateType : number) {
+        let newScore = 0;
+        if(updateType == 1) {
+            // increment the score
+            newScore = currentScore >=maxScore ? currentScore : currentScore+1;
+        } else if(updateType == 2) {
+            // decrement the score
+            newScore = currentScore <= 0 ? 0 : currentScore-1;
+        }
+        
+        setDisplayWinnerBtn(newScore >= maxScore ? true : false);
+
+        updateCurrentScore(newScore);
+    }
 
     return (
         <View style={styles.scoreCardView}>
@@ -29,20 +55,28 @@ function ScoreCard() : React.JSX.Element {
             </View>
 
             <View>
-                <Text style={[CommonStyle.txt, styles.currentScoreTxt]}>{CurrentScore}</Text>
+                <Text style={[CommonStyle.txt, styles.currentScoreTxt]}>{currentScore}</Text>
             </View>
 
             <View style={styles.btnView}>
-                <TouchableOpacity style={styles.btn}>
+                <TouchableOpacity 
+                style={styles.btn}
+                onPress={() => handleScoreUpdate(2)}
+                >
                     <Text style={CommonStyle.txt}>-</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.btn}>
+                <TouchableOpacity 
+                style={styles.btn}
+                onPress={() => handleScoreUpdate(1)}
+                >
                     <Text style={CommonStyle.txt}>+</Text>
                 </TouchableOpacity>
             </View>
 
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity 
+            style={[styles.btn, {display: displayWinnerBtn?"flex" : "none"}]}
+            >
                 <Text style={CommonStyle.txt}>Winner</Text>
             </TouchableOpacity>
         </View>

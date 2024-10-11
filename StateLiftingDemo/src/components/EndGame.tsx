@@ -5,15 +5,16 @@ import {
     StyleSheet,
     TouchableOpacity,
 } from "react-native";
+import { CommonStyle } from "../styles/styles";
 
 
 function EndGame() : React.JSX.Element {
     const winnerPlayer = "john";
     return (
         <View>
-            <Text>Winner is {winnerPlayer}!!!</Text>
+            <Text style={CommonStyle.txt}>Winner is {winnerPlayer}!!!</Text>
             <TouchableOpacity style={styles.btn}>
-                <Text>Restart</Text>
+                <Text style={CommonStyle.txt}>Restart</Text>
             </TouchableOpacity>
         </View>
     );
