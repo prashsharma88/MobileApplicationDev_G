@@ -11,18 +11,29 @@ import { CommonStyle } from "../styles/styles";
 type scoreCardPropsType = {
     playerName : string,
     maxScore : number,
+
+    
+    setScores : Array<number>,
+    currentScore : number,
+    updateCurrentScore : (val : number) => void,
+    handleWinner : () => void,
+
 };
 
 function ScoreCard( props : scoreCardPropsType ) : React.JSX.Element {
     const playerName = props.playerName;
     const maxScore = props.maxScore;
-    const scores = [10,20,30];
+
+    const scores = props.setScores;
+    const currentScore = props.currentScore;
+    const updateCurrentScore = props.updateCurrentScore; // function to update current score.
+    const handleWinner = props.handleWinner; // function called on winner btn click.
 
     const [displayWinnerBtn, setDisplayWinnerBtn] = useState(false);
 
     // local state for current score.
 
-    const [currentScore, updateCurrentScore] = useState(0);
+    // const [currentScore, updateCurrentScore] = useState(0);
 
     function handleScoreUpdate(updateType : number) {
         let newScore = 0;
@@ -75,6 +86,7 @@ function ScoreCard( props : scoreCardPropsType ) : React.JSX.Element {
             </View>
 
             <TouchableOpacity 
+            onPress={handleWinner}
             style={[styles.btn, {display: displayWinnerBtn?"flex" : "none"}]}
             >
                 <Text style={CommonStyle.txt}>Winner</Text>

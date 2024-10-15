@@ -9,7 +9,7 @@ import { CommonStyle } from "./styles/styles";
 import PlayView from "./components/PlayView";
 import EndGame from "./components/EndGame";
 
-enum gameStateValues {
+export enum gameStateValues {
     Start = 0,
     Play,
     End,
@@ -32,7 +32,7 @@ function Main() : React.JSX.Element {
     // Game State Management
     const [gameState, updateGameState] = useState(gameStateValues.Start);
 
-    const [p1Name, setP1Name] = useState('');
+    const [winnerName, setWinnerName] = useState('');
 
     function handleStartFormData(p1:string, p2:string, ms:number) {
 
@@ -49,8 +49,8 @@ function Main() : React.JSX.Element {
     const screens : Array<React.JSX.Element> = 
     [
         <StartForm handleData={handleStartFormData}/>, 
-        <PlayView p1Name={P1Name} p2Name={P2Name} maxScore={MaxScore}/>, 
-        <EndGame />
+        <PlayView p1Name={P1Name} p2Name={P2Name} maxScore={MaxScore} updateGameState={updateGameState} setWinnerName={setWinnerName}/>, 
+        <EndGame name={winnerName} updateGameState={updateGameState} />
     ];
 
     return (

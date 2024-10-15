@@ -6,14 +6,23 @@ import {
     TouchableOpacity,
 } from "react-native";
 import { CommonStyle } from "../styles/styles";
+import { gameStateValues } from "../Main";
 
+type EndGameViewPropsType = {
+    name : string,
+    updateGameState : (val : gameStateValues) => void,
+};
 
-function EndGame() : React.JSX.Element {
-    const winnerPlayer = "john";
+function EndGame(props : EndGameViewPropsType) : React.JSX.Element {
+    const winnerPlayer = props.name;
+    const updateGameState = props.updateGameState;
     return (
         <View>
             <Text style={CommonStyle.txt}>Winner is {winnerPlayer}!!!</Text>
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity 
+            onPress={() => updateGameState(gameStateValues.Start)}
+            style={styles.btn}
+            >
                 <Text style={CommonStyle.txt}>Restart</Text>
             </TouchableOpacity>
         </View>
