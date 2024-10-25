@@ -11,13 +11,28 @@ function Home({navigation} : {navigation : any}) : React.JSX.Element {
     return (
         <View>
             <Text style={styles.txt}>Main Screen</Text>
-            <Button 
-            title="Go To Details"
-            onPress={() => {
-                // x.navigation.navigate("Details");
-                navigation.navigate("Details");
-            }}
-            ></Button>
+            <View style={{margin: 10,}}>
+                <Button 
+                
+                title="Go To Details"
+                onPress={() => {
+                    // x.navigation.navigate("Details");
+                    // navigating to Details screen without parameters
+                    // navigation.navigate("Details");
+
+                    // navigating to Details screen with parameters
+                    navigation.navigate("Details", {
+                        id: Math.floor(Math.random()*10),
+                        desc: "Some Text To show",
+                    });
+                }}
+                />
+            </View>
+
+            <View style={{margin: 10,}}>
+                <Button title="Details No param" onPress={()=>navigation.navigate("Details")} />
+            </View>
+            
         </View>
     );
 }
